@@ -12,6 +12,10 @@ public class ShopRepositoryTest {
     Product milk = new Product(2, "Milk", 50);
     Product tea = new Product(3, "Tea", 340);
     Product coffee = new Product(4, "Coffee", 740);
+    Product chocolate = new Product(3, "Chocolate", 345);
+    Product milkChocolate = new Product(5, "Milk Chocolate", 385);
+
+
 
 
     @BeforeEach
@@ -37,7 +41,14 @@ public class ShopRepositoryTest {
 
     @Test
     public void shouldNotAddNewProductWithAlreadyExistsIdAndException() {
-        Product chocolate = new Product(3, "Chocolate", 345);
         Assertions.assertThrows(AlreadyExistsException.class, () -> repo.add(chocolate));
+    }
+
+    @Test
+    public void sholuldAddNewProduct() {
+        repo.add(milkChocolate);
+        Product[] expected = {lemonade, milk, tea,coffee,milkChocolate};
+
+        Assertions.assertArrayEquals(expected,repo.findAll());
     }
 }
